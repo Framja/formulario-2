@@ -1,0 +1,70 @@
+
+<div class="wrapper">
+    <main class="main-content">
+        <div class="form-container">
+            <div class="logo-framja">
+                <img src="assets/logo_framja.png">
+            </div>
+            <form id="stepForm" action="#">
+                <div class="step active" *ngIf="stepAtual == 'step1'">
+                    <h1 class="frase-cabecalho">Olá, vamos começar?</h1>
+                    <h2 class="frase-h2">Nos fale sobre você</h2>
+                    <input type="text" name="nome" class="placeholder" placeholder="Qual é o seu nome?" required>
+                    <input type="text" name="whatsapp" class="placeholder"
+                        placeholder="Qual é o número do seu WhatsApp?" required>
+                    <div>
+                        <button type="button" onclick="nextStep(2)">
+                            Próximo
+                            <i class="fas fa-chevron-right" style="float: right;"></i> 
+                        </button>
+                    </div>
+                </div>
+                <div class="step" id="step2">
+                    <h1 class="frase-cabecalho">Perfeito!</h1>
+                    <h2 class="frase-h2">Agora, nos fale sobre a sua empresa</h2>
+                    <input type="text" name="empresa" class="placeholder" placeholder="Qual é o nome da sua empresa?" required> 
+                    <select name="segmento" class="combo" required>
+                        <option value="">Selecione o segmento do seu negócio...</option>
+                        <option value="salaoDeBeleza">Salão de Beleza</option>
+                        <option value="barbearia">Barbearia</option>
+                        <option value="clinicaDeEstetica">Clínica de Estética</option>
+                        <option value="spa">Spa</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                    <select name="cargo" class="combo" required>
+                        <option value="">Selecione o cargo que você ocupa...</option>
+                        <option value="cabeleireiro">Cabeleireiro</option>
+                        <option value="barbeiro">Barbeiro</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                    <div class="botao-step">
+                        <button type="button" onclick="previousStep(1)">
+                            <i class="fas fa-chevron-left" style="float: left;"></i> 
+                            Anterior
+                        </button>
+                        <button type="button" onclick="nextStep(3)">                                
+                        <i class="fas fa-chevron-right" style="float: right;"></i> 
+                            Próximo
+                        </button>
+                    </div>
+                </div>
+                <div class="step" id="step3">
+                    <h1 class="frase-cabecalho">Ótimo!</h1>
+                    <h2 class="frase-h2">Agora é só nos informar seus dados para logar no Framja</h2>
+                    <input type="email" name="email" class="placeholder" placeholder="Qual é o seu email?" required>
+                    <input type="password" name="senha" class="placeholder" placeholder="Escolha a sua senha"
+                        required>
+                    <div class="botao-step">
+                        <button type="button" onclick="previousStep(2)">
+                            <i class="fas fa-chevron-left" style="float: left;"></i> 
+                            Anterior
+                        </button>
+                        <button type="submit">                             
+                            Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
