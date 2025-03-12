@@ -102,6 +102,90 @@
 
 }
 
+.botao-olhinho {
+    width: 50px !important;
+}
+
+.botao-step {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-container input {
+    width: 100%;
+    padding-right: 40px; /* Espaço para o ícone */
+    padding-left: 10px;
+}
+
+.input-container .botao-olhinho {
+    position: absolute;
+    right: 0px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+}
+
+.input-container .botao-olhinho:hover {
+    color: #333;
+}
+
+.termos-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o texto e o checkbox */
+    font-size: 15px;    
+;
+}   
+
+.termos-container input {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    
+}
+
+.termos-de-uso {
+    text-decoration: none;
+    color: #820adf;
+    font-weight: 200;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #820adf; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centraliza os itens */
+    gap: 18px; /* Espaço entre os itens */
+    padding: 0;
+    margin: 0;
+}
+
+footer li {
+    display: inline;
+    font-size: 10px;
+    
+}
+
 @media (max-width: 768px) {
     .form-container {
         width: 100%; 
@@ -115,10 +199,8 @@
         justify-content: center; 
         align-items: center;
     }
-}
 
-.botao-step {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    footer li {
+        font-size: 30px;
+    }
 }

@@ -1,19 +1,22 @@
-+++<div class="wrapper">
+<div class="wrapper">
     <main class="main-content">
         <div class="form-container">
             <div class="logo-framja">
                 <img src="assets/logo_framja.png">
             </div>
-            <form [formGroup]="leadForm" id="stepForm" action="#">
+            <form [formGroup]="leadForm" id="stepForm">
                 <div class="step active" *ngIf="stepAtual == 'step1'">
                     <h1 class="frase-cabecalho">Olá, vamos começar?</h1>
                     <h2 class="frase-h2">Nos fale sobre você</h2>
-                    <input type="text" formControlName="nome" class="placeholder" placeholder="Qual é o seu nome?"
+                    <input type="text" formControlName="nome" class="placeholder"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('nome')}" placeholder="Qual é o seu nome?"
                         required>
                     <input type="text" formControlName="whatsapp" class="placeholder"
+                        mask="(00) 00000-0000||(00) 0000-0000" [dropSpecialCharacters]="false"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('whatsapp')}"
                         placeholder="Qual é o número do seu WhatsApp?" required>
                     <div>
-                        <button type="button" (click)="definirStep('step2')">
+                        <button type="button" (click)="avancarStep2()">
                             Próximo
                             <i class="fas fa-chevron-right" style="float: right;"></i>
                         </button>
@@ -23,8 +26,10 @@
                     <h1 class="frase-cabecalho">Perfeito!</h1>
                     <h2 class="frase-h2">Agora, nos fale sobre a sua empresa</h2>
                     <input type="text" formControlName="empresa" class="placeholder"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('empresa')}"
                         placeholder="Qual é o nome da sua empresa?" required>
-                    <select formControlName="segmento" class="combo" required>
+                    <select formControlName="segmento" class="combo"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('segmento')}" required>
                         <option value="">Selecione o segmento do seu negócio...</option>
                         <option value="salaoDeBeleza">Salão de Beleza</option>
                         <option value="barbearia">Barbearia</option>
@@ -32,7 +37,8 @@
                         <option value="spa">Spa</option>
                         <option value="outros">Outros</option>
                     </select>
-                    <select formControlName="cargo" class="combo" required>
+                    <select formControlName="cargo" class="combo"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('cargo')}" required>
                         <option value="">Selecione o cargo que você ocupa...</option>
                         <option value="cabeleireiro">Cabeleireiro</option>
                         <option value="barbeiro">Barbeiro</option>
@@ -44,7 +50,7 @@
                             <i class="fas fa-chevron-left" style="float: left;"></i>
                             Anterior
                         </button>
-                        <button type="button" (click)="definirStep('step3')">
+                        <button type="button" (click)="avancarStep3()">
                             <i class="fas fa-chevron-right" style="float: right;"></i>
                             Próximo
                         </button>
@@ -53,28 +59,50 @@
                 <div class="step active" *ngIf="stepAtual == 'step3'">
                     <h1 class="frase-cabecalho">Ótimo!</h1>
                     <h2 class="frase-h2">Agora é só nos informar seus dados para logar no Framja</h2>
-                    <input type="email" formControlName="email" class="placeholder" placeholder="Qual é o seu email?"
+                    <input type="email" formControlName="email" class="placeholder"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('email')}" placeholder="Qual é o seu email?"
                         required>
-                    <input type="password" formControlName="senha" class="placeholder" placeholder="Escolha a sua senha"
-                        required>
+
+                        <div class="input-container">
+                            <input 
+                                [type]="exibirSenha ? 'text' : 'password'" 
+                                [value]="leadForm.controls['senha'].value" 
+                                formControlName="senha"
+                                class="placeholder" 
+                                [ngClass]="{'campo-invalido': invalidarFormControl('senha')}" 
+                                placeholder="Escolha a sua senha" 
+                                required
+                            >
+                            <i class="fas botao-olhinho" [ngClass]="{'fa-eye': !exibirSenha, 'fa-eye-slash': exibirSenha}" (click)="exibirSenha = !exibirSenha"></i>
+                            
+                        </div>
+                        
+                        <div class="termos-container">
+                            <input type="checkbox">
+                            <span>Aceito os <a class="termos-de-uso"href="https://framja.app.br/cadastro/cliente">termos de uso</a></span>
+                        </div>
+                        
+
                     <div class="botao-step">
                         <button type="button" (click)="definirStep('step2')">
                             <i class="fas fa-chevron-left" style="float: left;"></i>
                             Anterior
                         </button>
-                        <button type="submit">
+                        <button type="button" (click)="enviar()">
                             Enviar</button>
                     </div>
+                    
                 </div>
+                
             </form>
+            <footer>
+                <ul>
+                    <li>Framja Sistemas 2025</li>
+                    <li>Termos de Uso</li>
+                    <li>Política de Privacidade</li>
+                </ul>
+            </footer>
         </div>
+        
     </main>
 </div>
-
-
-
-<pre>
-
-        {{ leadForm.value | json }}
-        
-</pre>
