@@ -27,8 +27,8 @@
                 <div class="step active" *ngIf="stepAtual == 'step2'">
                     <h1 class="frase-cabecalho">Perfeito!</h1>
                     <h2 class="frase-h2">Agora, nos conte um pouco sobre o seu negócio</h2>
-                    <input type="text" formControlName="empresa" class="placeholder"
-                        [ngClass]="{'campo-invalido': invalidarFormControl('empresa')}"
+                    <input type="text" formControlName="estabelecimento" class="placeholder"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('estabelecimento')}"
                         placeholder="Qual é o nome da sua empresa?" required>
                     <select formControlName="segmento" class="combo"
                         [ngClass]="{'campo-invalido': invalidarFormControl('segmento')}" required>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="step active" *ngIf="stepAtual == 'step3'">
                     <h1 class="frase-cabecalho">Ótimo!</h1>
-                    <h2 class="frase-h2">Por fim é só nos informar seus dados para logar no Framja</h2>
+                    <h2 class="frase-h2">Por fim, é só nos informar seus dados para acessar o Framja</h2>
                     <input type="email" formControlName="email" class="placeholder"
                         [ngClass]="{'campo-invalido': invalidarFormControl('email')}" placeholder="Qual é o seu email?"
                         required>
