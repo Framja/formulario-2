@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 import { UserFirebaseResponse } from '../interfaces/user-firebase-response.interface';
 import { UserFirebaseRequest } from '../interfaces/user-firebase-request.interface';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { RefreshToken } from '../interfaces/refresh-token.interface';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,7 @@ export class AuthService {
   private refreshToken!: string;
 
   constructor(
+    private alertService: AlertService,
     private auth: Auth,
     private http: HttpClient
   ) { }
@@ -186,6 +189,44 @@ export class AuthService {
         })
       );
 
+  }
+
+  public atualizarToken(): Observable<string> {
+
+    const refresh_token = localStorage.getItem(environment.storage.framjaRefreshTokenAuth);
+    const grant_type = "refresh_token";
+
+    const url = `${environment.urlRefreshToken}?key=${environment.firebase.apiKey}`;
+    const request = { grant_type, refresh_token };
+
+    return this.http.post<RefreshToken>(url, request)
+      .pipe(
+        tap((resp) => {
+
+          //Atualiza a expiração do token para mais 1 hora
+          let hoje = new Date();
+          hoje.setSeconds(3600);
+          localStorage.setItem(environment.storage.framjaExpiraToken, hoje.getTime().toString());
+          
+          //Atualiza o valor do novo token
+          localStorage.setItem(environment.storage.framjaTokenAuth, resp.id_token);
+
+        }),
+        map(resp => resp.id_token)
+      );
+
+  }
+
+  logout() {
+    this.limparStorage();
+    window.location.href = "/";
+  }
+
+  limparStorage() {
+    this.alertService.fecharLoading();
+    localStorage.removeItem(environment.storage.framjaTokenAuth);
+    localStorage.removeItem(environment.storage.framjaRefreshTokenAuth);
+    localStorage.removeItem(environment.storage.framjaExpiraToken);
   }
 
 }

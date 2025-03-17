@@ -24,7 +24,9 @@ export class ServicoService extends BaseService {
     const url = `${this.urlBase}/${RotasApi.categoriaServicos}.json`;
 
     return this.http.get<CategoriaServico[]>(url).pipe(
-      map((resp: any) => this.utilService.criarArray<CategoriaServico>(resp)),
+      map((resp: any) => {
+        return this.utilService.criarArray<CategoriaServico>(resp);
+      }),
       map((result) =>
         result.sort((a, b) => (a.nomeCategoria > b.nomeCategoria ? 0 : -1))
       ),

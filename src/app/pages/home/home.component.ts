@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
@@ -25,6 +25,7 @@ import { ServicoProfissional } from '../../interfaces/servico-profissional.inter
 import { Profissional } from '../../interfaces/profissional.interface';
 import { EmailService } from '../../services/email.service';
 import { Router } from '@angular/router';
+import { Cargo } from '../../enums/cargo.enum';
 
 
 @Component({
@@ -39,11 +40,62 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css',
   providers: [provideNgxMask()],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   leadForm: FormGroup;
   stepAtual = "step1";
   exibirSenha: boolean = false;
+
+  segmentos: string[] = [
+    "Salão de Beleza",
+    "Mega Hair",
+    "Barbearia",
+    "Esmalteria",
+    "Centro de Estética",
+    "Podologia",
+    "Spa",
+    "Estúdio de Tatuagem",
+    "Outros"
+  ];
+
+  cargos = [
+    Cargo.Administrador,
+    Cargo.Acupunturista,
+    Cargo.Assistente,
+    Cargo.Administrativo,
+    Cargo.Barbeiro,
+    Cargo.Cabeleireiro,
+    Cargo.Cafe,
+    Cargo.Colorista,
+    Cargo.Copeira,
+    Cargo.Consultor,
+    Cargo.CirurgiaoPlastico,
+    Cargo.Depilador,
+    Cargo.DesignerSobrancelhas,
+    Cargo.Estoquista,
+    Cargo.Esteticista,
+    Cargo.Faxineira,
+    Cargo.Freelancer,
+    Cargo.Fisioterapeuta,
+    Cargo.Financeiro,
+    Cargo.Gerente,
+    Cargo.Gestor,
+    Cargo.Marketing,
+    Cargo.Manicure,
+    Cargo.Manobrista,
+    Cargo.Manutencao,
+    Cargo.Maquiador,
+    Cargo.Massagista,
+    Cargo.Micropigmentador,
+    Cargo.Nutricionista,
+    Cargo.OperadorDeCaixa,
+    Cargo.Pedicure,
+    Cargo.Podologista,
+    Cargo.Recepcionista,
+    Cargo.Terapeuta,
+    Cargo.Tatuador,
+    Cargo.Vendedor,
+  ];
 
   constructor(
     private alertService: AlertService,
@@ -68,6 +120,9 @@ export class HomeComponent {
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]]
     })
+  }
+
+  ngOnInit(): void {
   }
 
 
@@ -248,11 +303,13 @@ export class HomeComponent {
                               cadastrarLead: this.profissionalService.cadastrar<Lead>(RotasApi.leads, leadRequest)
                             }).subscribe(
                               ({ categoriasServicos, cadastrarUsuario: cadastrarUsuarioResponse, cadastrarLead: cadastrarLeadRequest, cadastrarConfiguracaoHorario }) => {
-                                
+
                                 if (cadastrarUsuarioResponse.sucesso && cadastrarLeadRequest.sucesso && cadastrarConfiguracaoHorario.sucesso) {
 
                                   //Cadastrar os serviços padrão para cada segmento
                                   const servicos = this.servicoService.obterServicosPadrao(empresa, segmento, categoriasServicos);
+                                  console.log("Serviços Padrão", { servicos });
+
 
                                   // Criar um array de observáveis para as chamadas de cadastro
                                   const cadastroServicos$ = servicos.map(servico =>
@@ -304,20 +361,10 @@ export class HomeComponent {
                                             this.emailService.enviarEmailBoasVindas(nome, email, password).subscribe(
                                               () => {
 
+                                                window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
                                                
-                                                this.router.navigate(['/auth']);
-                                                // try {
-                                                //   window.parent.postMessage('redirectToObrigado', 'https://site.framja.app.br');
-                                                //   console.log("Mensagem enviada com sucesso para o parent!");
-                                                // } catch (error) {
-                                                //   console.error("Erro ao enviar mensagem para a página pai:", error);
-                                                // }
-                                                
-
                                               }
-                                            )
-
-
+                                            );
 
                                           }
                                           else {

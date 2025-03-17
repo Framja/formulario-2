@@ -6,21 +6,25 @@ import { Injectable } from '@angular/core';
 export class UtilService {
 
   constructor() { }
+  
+  public criarArray<T>(itens: any): T[] {
+    const listaRetorno: T[] = [];
 
-  public criarArray<T>(itens: Record<string, T> | null): T[] {
-    if (!itens) {
+    if (itens === null) {
       return [];
     }
-  
-    const listaRetorno: T[] = [];
-  
-    Object.keys(itens).forEach((id) => {
-      const item = { ...itens[id], id } as T; 
+
+    //JAVASCRIPT PURO! Converte objeto itens em array de keys
+    //Para converter em array de values: utilizar Object.values(itens)
+    //Para converter em array com keys e values: utilizar Object.entries(itens)
+    Object.keys(itens).forEach((id: any) => {
+      const item: any = itens[id];
+      item['id'] = id;
+      listaRetorno.push(item);
     });
-  
+
     return listaRetorno;
   }
-
   removerAcentos(texto: string): string {
     return texto.normalize('NFD').replace(/[\u0300-\u036f|\u00b4|\u0060|\u005e|\u007e]/g, '');
   }

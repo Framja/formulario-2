@@ -22,4 +22,5 @@ export const environment = {
     urlRefreshToken: 'https://securetoken.googleapis.com/v1/token',
     idPlanoTesteGratis: "-Nj7UYSwjic8_EH9nvSl",
     idEmpresaFramja: "-NblTJSCCj_C2L6qbQkA",
+    urlSistema: "https://homol.framja.app.br",
 }

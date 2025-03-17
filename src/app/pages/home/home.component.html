@@ -33,19 +33,12 @@
                     <select formControlName="segmento" class="combo"
                         [ngClass]="{'campo-invalido': invalidarFormControl('segmento')}" required>
                         <option value="">Selecione o segmento do seu negócio...</option>
-                        <option value="salaoDeBeleza">Salão de Beleza</option>
-                        <option value="barbearia">Barbearia</option>
-                        <option value="clinicaDeEstetica">Clínica de Estética</option>
-                        <option value="spa">Spa</option>
-                        <option value="outros">Outros</option>
+                        <option *ngFor="let segmento of segmentos" [value]="segmento">{{ segmento }}</option>                       
                     </select>
                     <select formControlName="cargo" class="combo"
-                        [ngClass]="{'campo-invalido': invalidarFormControl('cargo')}" required>
-                        <option value="">Selecione o cargo que você ocupa...</option>
-                        <option value="cabeleireiro">Cabeleireiro</option>
-                        <option value="barbeiro">Barbeiro</option>
-                        <option value="administrador">Administrador</option>
-                        <option value="outros">Outros</option>
+                    [ngClass]="{'campo-invalido': invalidarFormControl('cargo')}" required>
+                        <option value="">Selecione o cargo que você ocupa...</option>                       
+                        <option *ngFor="let cargo of cargos" [value]="cargo">{{ cargo }}</option>                       
                     </select>
                     <div class="botao-step">
                         <button type="button" (click)="definirStep('step1')">
