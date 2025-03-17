@@ -19,7 +19,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 })
 export class HomeComponent {
 
-  stepAtual = "step3";
+  stepAtual = "step1";
   exibirSenha: boolean = false;
 
   definirStep(step: string) {

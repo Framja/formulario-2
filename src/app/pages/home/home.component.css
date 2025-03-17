@@ -90,7 +90,7 @@
     color: rgba(0, 0, 0, 0.579);
 }
 
-.logo-framja {
+.logo-link {
     display: flex;
     justify-content: flex-end;
     position: absolute;
@@ -112,6 +112,7 @@
     gap: 10px;
 }
 
+
 .input-container {
     position: relative;
     display: flex;
@@ -122,7 +123,7 @@
 .input-container input {
     width: 100%;
     padding-right: 40px; /* Espaço para o ícone */
-    padding-left: 10px;
+    padding-left: 15px;
 }
 
 .input-container .botao-olhinho {
@@ -143,7 +144,10 @@
     display: flex;
     align-items: center;
     gap: 10px; /* Espaço entre o texto e o checkbox */
-    font-size: 15px;    
+    font-size: 15px;
+    padding-left: 15px;
+    padding: 15px
+
 ;
 }   
 
@@ -160,6 +164,12 @@
     font-weight: 200;
 }
 
+.politicas-de-privacidade {
+    text-decoration: none;
+    color: #820adf;
+    font-weight: 200;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -171,19 +181,22 @@ footer {
     text-align: center;
 }
 
-footer ul {
-    list-style: none;
-    display: flex;
-    justify-content: center; /* Centraliza os itens */
-    gap: 18px; /* Espaço entre os itens */
-    padding: 0;
-    margin: 0;
+.footer-link {
+    text-decoration: none;
+    color: white;
 }
 
-footer li {
-    display: inline;
-    font-size: 10px;
-    
+.footer-link:hover {
+    font-weight: 700;
+}
+
+.div-footer {
+    display: flex; 
+    gap: 25px; 
+    justify-content: center; 
+    font-size: 14px; 
+    padding-left: 20px; 
+    padding-right: 20px;
 }
 
 @media (max-width: 768px) {
@@ -202,5 +215,10 @@ footer li {
 
     footer li {
         font-size: 30px;
+    }
+
+    .div-footer {
+        flex-direction: column;
+        gap: 10px;
     }
 }
