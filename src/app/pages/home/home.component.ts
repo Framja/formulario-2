@@ -16,7 +16,7 @@ import { TipoUsuario } from '../../enums/tipo-usuario.enum';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { Lead } from '../../interfaces/lead.interface';
 import { StatusLead } from '../../enums/status-lead.enum';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, throwError } from 'rxjs';
 import { ServicoService } from '../../services/servico.service';
 import { ConfiguracoesService } from '../../services/configuracoes.service';
 import { UsuarioService } from '../../services/usuario.service';
@@ -358,24 +358,17 @@ export class HomeComponent implements OnInit {
 
                                           if (profissionalResponse.sucesso) {
 
-
-                                            try {
-                                              
-                                              this.emailService.enviarEmailBoasVindas(nome, email, password).subscribe(
-                                                () => {
-  
-                                                  window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
-                                                  
-                                                }
-                                              );
-                                              
-                                            } catch {
-                                              
+                                            this.emailService.enviarEmailBoasVindas(nome, email, password).pipe(
+                                              catchError((error) => {
+                                                console.error('Erro ao enviar e-mail na Brevo:', error);
+                                                window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
+                                                return throwError(() => error);
+                                              })
+                                            ).subscribe(() => {
+                                              //Sucesso ao enviar email
                                               window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
-                                              
-                                            }
-
-
+                                            });
+                                            
 
                                           }
                                           else {
