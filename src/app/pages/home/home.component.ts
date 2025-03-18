@@ -358,13 +358,24 @@ export class HomeComponent implements OnInit {
 
                                           if (profissionalResponse.sucesso) {
 
-                                            this.emailService.enviarEmailBoasVindas(nome, email, password).subscribe(
-                                              () => {
 
-                                                window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
-                                               
-                                              }
-                                            );
+                                            try {
+                                              
+                                              this.emailService.enviarEmailBoasVindas(nome, email, password).subscribe(
+                                                () => {
+  
+                                                  window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
+                                                  
+                                                }
+                                              );
+                                              
+                                            } catch {
+                                              
+                                              window.location.href = `${environment.urlSistema}/auth?email=${email}&key=${password}`;
+                                              
+                                            }
+
+
 
                                           }
                                           else {
