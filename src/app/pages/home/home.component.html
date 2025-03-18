@@ -27,25 +27,18 @@
                 <div class="step active" *ngIf="stepAtual == 'step2'">
                     <h1 class="frase-cabecalho">Perfeito!</h1>
                     <h2 class="frase-h2">Agora, nos conte um pouco sobre o seu negócio</h2>
-                    <input type="text" formControlName="empresa" class="placeholder"
-                        [ngClass]="{'campo-invalido': invalidarFormControl('empresa')}"
+                    <input type="text" formControlName="estabelecimento" class="placeholder"
+                        [ngClass]="{'campo-invalido': invalidarFormControl('estabelecimento')}"
                         placeholder="Qual é o nome da sua empresa?" required>
                     <select formControlName="segmento" class="combo"
                         [ngClass]="{'campo-invalido': invalidarFormControl('segmento')}" required>
                         <option value="">Selecione o segmento do seu negócio...</option>
-                        <option value="salaoDeBeleza">Salão de Beleza</option>
-                        <option value="barbearia">Barbearia</option>
-                        <option value="clinicaDeEstetica">Clínica de Estética</option>
-                        <option value="spa">Spa</option>
-                        <option value="outros">Outros</option>
+                        <option *ngFor="let segmento of segmentos" [value]="segmento">{{ segmento }}</option>                       
                     </select>
                     <select formControlName="cargo" class="combo"
-                        [ngClass]="{'campo-invalido': invalidarFormControl('cargo')}" required>
-                        <option value="">Selecione o cargo que você ocupa...</option>
-                        <option value="cabeleireiro">Cabeleireiro</option>
-                        <option value="barbeiro">Barbeiro</option>
-                        <option value="administrador">Administrador</option>
-                        <option value="outros">Outros</option>
+                    [ngClass]="{'campo-invalido': invalidarFormControl('cargo')}" required>
+                        <option value="">Selecione o cargo que você ocupa...</option>                       
+                        <option *ngFor="let cargo of cargos" [value]="cargo">{{ cargo }}</option>                       
                     </select>
                     <div class="botao-step">
                         <button type="button" (click)="definirStep('step1')">
@@ -60,7 +53,7 @@
                 </div>
                 <div class="step active" *ngIf="stepAtual == 'step3'">
                     <h1 class="frase-cabecalho">Ótimo!</h1>
-                    <h2 class="frase-h2">Por fim é só nos informar seus dados para logar no Framja</h2>
+                    <h2 class="frase-h2">Por fim, é só nos informar seus dados para acessar o Framja</h2>
                     <input type="email" formControlName="email" class="placeholder"
                         [ngClass]="{'campo-invalido': invalidarFormControl('email')}" placeholder="Qual é o seu email?"
                         required>
